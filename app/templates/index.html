@@ -9,15 +9,50 @@
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     </head>
-    <body>
+    <body  style="margin-right: 10px; margin-left: 10px;">
         <header>
-            <h1>Ceneo Web Scraper</h1>
+            <div class="jumbotron">
+                <h1 class="display-4">Ceneo Web Scraper</h1>
+                <p class="lead">Aplikacja webowa</p>
+                <hr class="my-4">
+            </div>
         </header>
-        <div>
-            <p>{{text}}</p>
+        
+        <nav>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" style="color: palevioletred" href="#">Active</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: palevioletred" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: palevioletred" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" style="color: pink" href="#">Disabled</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="row" style="height: 100vh">
+            <div class="col-sm-4">
+                <div>
+                    <p>{{text}}</p>
+                </div>
+            </div>
+            <div class="col-sm-8">Kolumna w stosunku 8:4</div>
         </div>
-        <footer>
-            <p>&copy; Amelia Lis Uniwersytet Ekonomiczny w Krakowie</p>
+
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+            </ul>
+            <p class="text-center text-muted">&copy; Amelia Lis Uniwersytet Ekonomiczny w Krakowie</p>
         </footer>
     </body>
 </html>
