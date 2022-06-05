@@ -59,8 +59,8 @@ def extract():
                 url = "https://www.ceneo.pl"+page.select_one("a.pagination__next")["href"]
             except TypeError:
                 url = None
-
-            c
+            if not os.path.exists("app/opinions"):
+                os.makedirs("app/opinions")
             with open(f"app/opinions/{product_id}.json", "w", encoding ="UTF-8") as jf:
                 json.dump(all_opinions, jf, indent=4, ensure_ascii=False)
             return redirect(url_for('product', product_id=product_id))
