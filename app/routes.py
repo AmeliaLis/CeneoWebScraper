@@ -59,11 +59,11 @@ def extract():
                 url = "https://www.ceneo.pl"+page.select_one("a.pagination__next")["href"]
             except TypeError:
                 url = None
-            if not os.path.exists("app/opinions"):
-                os.makedirs("app/opinions")
-            with open(f"app/opinions/{product_id}.json", "w", encoding ="UTF-8") as jf:
-                json.dump(all_opinions, jf, indent=4, ensure_ascii=False)
-            return redirect(url_for('product', product_id=product_id))
+        if not os.path.exists("app/opinions"):
+            os.makedirs("app/opinions")
+        with open(f"app/opinions/{product_id}.json", "w", encoding ="UTF-8") as jf:
+            json.dump(all_opinions, jf, indent=4, ensure_ascii=False)
+        return redirect(url_for('product', product_id=product_id))
     else:
         return render_template("extract.html.jinja")
 
@@ -79,7 +79,7 @@ def author():
 
 @app.route("/product/<product_id>")
 def product(product_id):
-    opinions = pd.read_json(f"opinions/{product_id}.json")
+    opinions = pd.read_json(f"app/opinions/{product_id}.json")
     opinions["stars"] = opinions["stars"].map(lambda x: float(x.split("/")[0].replace(",", ".")))
 
     stats = {
@@ -113,7 +113,7 @@ def product(product_id):
     plt.ylabel("Liczba opinii")
     plt.grid(True, axis="y")
     plt.xticks(rotation=0)
-    plt.savefig(f"plots/{product_id}stars.png")
+    plt.savefig(f"app/plots/{product_id}_stars.png")
     plt.close()
 
     return render_template("product.html.jinja", product_id=product_id, stats=stats, opinions=opinions)
