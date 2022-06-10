@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 import os
 import json
 class Product():
-    def __init__(self, product_id, opinions=[], product_name="", opinions_count=0,pros_count=0, cons_count=0, average_score=0):
+    def __init__(self, product_id, opinions=[], product_name="", opinions_count=0, pros_count=0, cons_count=0, average_score=0):
         self.product_id = product_id
         self.product_name = product_name
         self.opinions = opinions
@@ -23,7 +23,6 @@ class Product():
         response = requests.get(url)
         page = BeautifulSoup(response.text,"html.parser")
         self.product_name = get_item(page,"h1.product-top__product-info__name")
-        
         return self
 
     def extract_opinions(self):
@@ -36,7 +35,7 @@ class Product():
                 single_opinion = Opinion().extract_opinion(opinion)
                 self.opinions.append(single_opinion)
             try:
-                url = "https://www.ceneo.pl"+ get_item(page.select_one("a.pagination__next")["href"])
+                url = "https://www.ceneo.pl" + get_item(page, "a.pagination__next", "href")
             except TypeError:
                 url = None
         return self
@@ -45,7 +44,6 @@ class Product():
         return pd.read_json(json.dumps([opinion.to_dict() for opinion in self.opinions]))
 
     def calculate_stats(self):
-
         opinions = self.opinions_to_df()
         opinions["stars"] = opinions["stars"].map(lambda x: float(x.split("/")[0].replace(",", ".")))
 
@@ -58,7 +56,7 @@ class Product():
 
     def draw_charts(self):
         opinions = self.opinions_to_df()
-        if not os.path.exists("app/static/plots"):
+        if not os.path.exists("app/plots"):
             os.makedirs("app/plots")
                 
         recommendation = opinions["recommendation"].value_counts(dropna=False).sort_index().reindex(["Nie polecam", "Polecam", None], fill_value=0)
@@ -70,7 +68,7 @@ class Product():
         )
 
         plt.title("Rekomendacje")
-        plt.savefig(f"app/plots/{self.product_id}_recommendation.png")
+        plt.savefig(f"app/static/plots/{self.product_id}_recommendation.png")
         plt.close()
 
         stars = opinions["stars"].value_counts().sort_index().reindex(list(np.arange(0,5.5,0.5)), fill_value=0)
@@ -82,7 +80,7 @@ class Product():
         plt.ylabel("Liczba opinii")
         plt.grid(True, axis="y")
         plt.xticks(rotation=0)
-        plt.savefig(f"app/plots/{self.product_id}_stars.png")
+        plt.savefig(f"app/static/plots/{self.product_id}_stars.png")
         plt.close()
 
         return self
@@ -103,5 +101,5 @@ class Product():
             json.dump([opinion.to_dict() for opinion in self.opinions], jf, indent=4, ensure_ascii=False)
         pass
 
-    def export_product():
+    def export_product(self):
         pass

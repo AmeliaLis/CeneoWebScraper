@@ -1,7 +1,7 @@
 from app.parameters import selectors
 from app.utils import get_item
 class Opinion():
-    def __init__(self, opinion_id="", author="", recommendation=None, stars=0, content="", pros=[], cons=[], useful=0, useless=0, publish_date=None, purchase_date=None):
+    def __init__(self, author="", recommendation=None, stars=0, content="", pros=[], cons=[], useful=0, useless=0, publish_date=None, purchase_date=None,  opinion_id=""):
         self.opinion_id = opinion_id
         self.author = author
         self.recommendation = recommendation

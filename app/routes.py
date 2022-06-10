@@ -5,9 +5,6 @@ import os
 from app.models.product import Product
 
 
-
-
-
 @app.route('/')
 def index():
     return render_template("index.html.jinja")
@@ -22,7 +19,6 @@ def extract():
             product.extract_opinions().calculate_stats().draw_charts()
         else:
             pass
-        
 
         return redirect(url_for('product', product_id=product_id))
     else:
