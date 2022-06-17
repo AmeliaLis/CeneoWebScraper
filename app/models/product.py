@@ -40,8 +40,8 @@ class Product():
         return self
 
     def opinions_to_df(self):
-        opinions = pd.read_json(json.dumps([opinion.to_dict() for opinion in self.opinions]))
-        opinions.stars = opinions.stars.map(lambda x: float(x.split("/")[0].replace(",", ".")))
+        opinions = pd.read_json(json.dumps(self.opinions.to_dict()))
+        opinions["stars"] = opinions["stars"].map(lambda x: float(x.split("/")[0].replace(",", ".")))
         return opinions
 
     def calculate_stats(self):
