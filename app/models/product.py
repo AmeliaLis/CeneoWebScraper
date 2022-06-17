@@ -40,7 +40,7 @@ class Product():
         return self
 
     def opinions_to_df(self):
-        opinions = pd.read_json(json.dumps(self.opinions.to_dict()))
+        opinions = pd.read_json(json.dumps(self.opinions_to_dict()))
         opinions["stars"] = opinions["stars"].map(lambda x: float(x.split("/")[0].replace(",", ".")))
         return opinions
 
@@ -97,7 +97,7 @@ class Product():
     def __repr__(self):
         return f"Product(product_id={self.product_id}, product_name={self.product_name}, opinions_count={self.opinions_count}, pros_count={self.pros_count}, cons_count={self.cons_count}, average_score={self.average_score}, opinions: [" + ", ".join(opinion.__repr__() for opinion in self.opinions) + "])"
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {
             "product_id": self.product_id,
             "product_name": self.product_name,
